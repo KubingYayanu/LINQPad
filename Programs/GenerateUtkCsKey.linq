@@ -1,6 +1,8 @@
 <Query Kind="Program">
   <Namespace>System.Security.Cryptography</Namespace>
+  <Namespace>System.Text.Encodings.Web</Namespace>
   <Namespace>System.Text.Json.Serialization</Namespace>
+  <Namespace>System.Text.Unicode</Namespace>
 </Query>
 
 void Main()
@@ -17,7 +19,7 @@ void Main()
     request.SysDate = sysDate;
     request.SysTime = sysTime;
 	
-	var requestJson = request.ToJson();
+	var requestJson = request.ToJson(escapeAllSymbol: true);
 	var csKey = HMACSHA1HashHelper.HashBase64(apiKey, requestJson);
 	requestJson.Dump();
 	csKey.Dump();
@@ -149,11 +151,15 @@ public class HMACSHA1HashHelper
 
 public static class StringHelper
 {
-	public static string ToJson<T>(this T source, bool isCamelCase = false)
+	public static string ToJson<T>(
+        this T source,
+        bool isCamelCase = false,
+        bool escapeAllSymbol = false)
         where T : class, new()
     {
         var options = new System.Text.Json.JsonSerializerOptions
         {
+            Encoder = escapeAllSymbol ? JavaScriptEncoder.UnsafeRelaxedJsonEscaping : null,
             PropertyNamingPolicy = isCamelCase ? System.Text.Json.JsonNamingPolicy.CamelCase : null
         };
 
