@@ -9,10 +9,10 @@ void Main()
     var encrypted = LiffThirdParty.GetEncryptedKey(nameof(LiffThirdParty.MaacApiKey), value);
     var liffThirdParty = new LiffThirdParty
     {
-        MaacApiKey = encrypted
+        OtpApiKey = encrypted
     };
 	
-	var decrypted = liffThirdParty.DecryptedMaacApiKey();
+	var decrypted = liffThirdParty.DecryptedOtpApiKey();
 	decrypted.Dump();
 }
 
