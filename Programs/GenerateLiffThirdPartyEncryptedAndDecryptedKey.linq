@@ -66,6 +66,15 @@ public class LiffThirdParty
     public string DecryptedUtkApiKey()
         => GetDecryptedKey(nameof(UtkApiKey), UtkApiKey);
 
+	/// <summary>
+    /// 已用 AES 加密的 Thinker_api_key
+    /// </summary>
+    [Description("thinker_api_key")]
+    public string ThinkerApiKey { get; set; }
+
+    public string DecryptedThinkerApiKey()
+        => GetDecryptedKey(nameof(ThinkerApiKey), ThinkerApiKey);
+
     private static string GetBsonElementName(string propertyName)
     {
         var elementName = typeof(LiffThirdParty)
