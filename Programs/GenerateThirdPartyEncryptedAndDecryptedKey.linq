@@ -78,6 +78,7 @@ public enum ThirdPartySettingKey
     Maac_LiffUrl,
     Maac_LiffId,
     Maac_LineOa,
+    Maac_LineChannelName,
     Maac_ApiUrl,
 
     [EncryptedThirdPartySetting]
@@ -90,7 +91,10 @@ public enum ThirdPartySettingKey
     Thinker_DepartmentId,
 
     [EncryptedThirdPartySetting]
-    Thinker_ApiKey,
+    Thinker_GiftListApiKey,
+
+    [EncryptedThirdPartySetting]
+    Thinker_GiftSmsApiKey,
 
     Thinker_GiftSmsListId,
 
@@ -120,7 +124,7 @@ public enum ThirdPartySettingKey
 
 public static class ThirdPartySettingVendorExtensions
 {
-	public static ThirdPartySettingKey GetKeyEnum(this ThirdPartySettingVendor vendor, string key)
+    public static ThirdPartySettingKey GetKeyEnum(this ThirdPartySettingVendor vendor, string key)
     {
         return (vendor, key) switch
         {
@@ -131,6 +135,8 @@ public static class ThirdPartySettingVendorExtensions
                 ThirdPartySettingKey.Maac_LiffId,
             (ThirdPartySettingVendor.Maac, ThirdPartySettingKeyExtensions.LineOa) =>
                 ThirdPartySettingKey.Maac_LineOa,
+            (ThirdPartySettingVendor.Maac, ThirdPartySettingKeyExtensions.LineChannelName) =>
+                ThirdPartySettingKey.Maac_LineChannelName,
             (ThirdPartySettingVendor.Maac, ThirdPartySettingKeyExtensions.MaacApiUrl) =>
                 ThirdPartySettingKey.Maac_ApiUrl,
             (ThirdPartySettingVendor.Maac, ThirdPartySettingKeyExtensions.MaacApiKey) =>
@@ -146,8 +152,10 @@ public static class ThirdPartySettingVendorExtensions
                 ThirdPartySettingKey.Thinker_SiteDomain,
             (ThirdPartySettingVendor.Thinker, ThirdPartySettingKeyExtensions.ThinkerDepartmentId) =>
                 ThirdPartySettingKey.Thinker_DepartmentId,
-            (ThirdPartySettingVendor.Thinker, ThirdPartySettingKeyExtensions.ThinkerApiKey) =>
-                ThirdPartySettingKey.Thinker_ApiKey,
+            (ThirdPartySettingVendor.Thinker, ThirdPartySettingKeyExtensions.ThinkerGiftListApiKey) =>
+                ThirdPartySettingKey.Thinker_GiftListApiKey,
+            (ThirdPartySettingVendor.Thinker, ThirdPartySettingKeyExtensions.ThinkerGiftSmsApiKey) =>
+                ThirdPartySettingKey.Thinker_GiftSmsApiKey,
             (ThirdPartySettingVendor.Thinker, ThirdPartySettingKeyExtensions.ThinkerGiftSmsListId) =>
                 ThirdPartySettingKey.Thinker_GiftSmsListId,
             // Shopline
@@ -176,8 +184,8 @@ public static class ThirdPartySettingVendorExtensions
             _ => throw new NotImplementedException(),
         };
     }
-	
-	public static string ToLabel(this ThirdPartySettingVendor vendor)
+
+    public static string ToLabel(this ThirdPartySettingVendor vendor)
     {
         return vendor switch
         {
@@ -192,12 +200,12 @@ public static class ThirdPartySettingVendorExtensions
         };
     }
 }
-
 public static class ThirdPartySettingKeyExtensions
 {
-	public const string LiffUrl = "liff_url";
+    public const string LiffUrl = "liff_url";
     public const string LiffId = "liff_id";
     public const string LineOa = "line_oa";
+    public const string LineChannelName = "line_channel_name";
     public const string MaacApiUrl = "maac_api_url";
     public const string MaacApiKey = "maac_api_key";
     public const string MaacBindTagId = "maac_bind_tag_id";
@@ -205,7 +213,8 @@ public static class ThirdPartySettingKeyExtensions
     public const string MaacCustomerIdField = "maac_customer_id_field";
     public const string ThinkerSiteDomain = "thinker_site_domain";
     public const string ThinkerDepartmentId = "thinker_department_id";
-    public const string ThinkerApiKey = "thinker_api_key";
+    public const string ThinkerGiftListApiKey = "thinker_gift_list_api_key";
+    public const string ThinkerGiftSmsApiKey = "thinker_gfit_sms_api_key";
     public const string ThinkerGiftSmsListId = "thinker_gift_sms_list_id";
     public const string ShoplineOpenApiKey = "shopline_openapi_key";
     public const string UtkApiKey = "utk_api_key";
@@ -216,8 +225,8 @@ public static class ThirdPartySettingKeyExtensions
     public const string FlapsApName = "flaps_ap_name";
     public const string LitBindField = "lit_bind_field";
     public const string LitOtpApiKey = "lit_otp_api_key";
-	
-	public static (string vendor, string key) ToLabel(this ThirdPartySettingKey key)
+
+    public static (string vendor, string key) ToLabel(this ThirdPartySettingKey key)
     {
         return key switch
         {
@@ -228,6 +237,8 @@ public static class ThirdPartySettingKeyExtensions
                 (ThirdPartySettingVendor.Maac.ToLabel(), LiffId),
             ThirdPartySettingKey.Maac_LineOa =>
                 (ThirdPartySettingVendor.Maac.ToLabel(), LineOa),
+            ThirdPartySettingKey.Maac_LineChannelName =>
+                (ThirdPartySettingVendor.Maac.ToLabel(), LineChannelName),
             ThirdPartySettingKey.Maac_ApiUrl =>
                 (ThirdPartySettingVendor.Maac.ToLabel(), MaacApiUrl),
             ThirdPartySettingKey.Maac_ApiKey =>
@@ -243,8 +254,10 @@ public static class ThirdPartySettingKeyExtensions
                 (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerSiteDomain),
             ThirdPartySettingKey.Thinker_DepartmentId =>
                 (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerDepartmentId),
-            ThirdPartySettingKey.Thinker_ApiKey =>
-                (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerApiKey),
+            ThirdPartySettingKey.Thinker_GiftListApiKey =>
+                (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerGiftListApiKey),
+            ThirdPartySettingKey.Thinker_GiftSmsApiKey =>
+                (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerGiftSmsApiKey),
             ThirdPartySettingKey.Thinker_GiftSmsListId =>
                 (ThirdPartySettingVendor.Thinker.ToLabel(), ThinkerGiftSmsListId),
             // Shopline
