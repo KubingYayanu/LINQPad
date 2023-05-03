@@ -70,7 +70,8 @@ public enum ThirdPartySettingVendor
     Utk,
     RedComet,
     Flaps,
-    Lit
+    Lit,
+    BotBonnie
 }
 
 public enum ThirdPartySettingKey
@@ -119,7 +120,15 @@ public enum ThirdPartySettingKey
     Lit_BindField,
 
     [EncryptedThirdPartySetting]
-    Lit_OtpApiKey
+    Lit_OtpApiKey,
+	
+	BotBonnie_LineOa,
+    BotBonnie_LineBot,
+    BotBonnie_BindTagId,
+    BotBonnie_BindModuleId,
+
+    [EncryptedThirdPartySetting]
+    BotBonnie_ApiToken
 }
 
 public static class ThirdPartySettingVendorExtensions
@@ -181,6 +190,17 @@ public static class ThirdPartySettingVendorExtensions
                 ThirdPartySettingKey.Lit_BindField,
             (ThirdPartySettingVendor.Lit, ThirdPartySettingKeyExtensions.LitOtpApiKey) =>
                 ThirdPartySettingKey.Lit_OtpApiKey,
+			// BotBonnie
+            (ThirdPartySettingVendor.BotBonnie, ThirdPartySettingKeyExtensions.LineOa) =>
+                ThirdPartySettingKey.BotBonnie_LineOa,
+            (ThirdPartySettingVendor.BotBonnie, ThirdPartySettingKeyExtensions.LineBot) =>
+                ThirdPartySettingKey.BotBonnie_LineBot,
+            (ThirdPartySettingVendor.BotBonnie, ThirdPartySettingKeyExtensions.BotBonnieBindTagId) =>
+                ThirdPartySettingKey.BotBonnie_BindTagId,
+            (ThirdPartySettingVendor.BotBonnie, ThirdPartySettingKeyExtensions.BotBonnieBindModuleId) =>
+                ThirdPartySettingKey.BotBonnie_BindModuleId,
+            (ThirdPartySettingVendor.BotBonnie, ThirdPartySettingKeyExtensions.BotBonnieApiToken) =>
+                ThirdPartySettingKey.BotBonnie_ApiToken,
             _ => throw new NotImplementedException(),
         };
     }
@@ -196,6 +216,7 @@ public static class ThirdPartySettingVendorExtensions
             ThirdPartySettingVendor.RedComet => "redcomet",
             ThirdPartySettingVendor.Flaps => "flaps",
             ThirdPartySettingVendor.Lit => "lit",
+            ThirdPartySettingVendor.BotBonnie => "botbonnie",
             _ => null
         };
     }
@@ -205,6 +226,7 @@ public static class ThirdPartySettingKeyExtensions
     public const string LiffUrl = "liff_url";
     public const string LiffId = "liff_id";
     public const string LineOa = "line_oa";
+	public const string LineBot = "line_bot";
     public const string LineChannelName = "line_channel_name";
     public const string MaacApiUrl = "maac_api_url";
     public const string MaacApiKey = "maac_api_key";
@@ -225,6 +247,9 @@ public static class ThirdPartySettingKeyExtensions
     public const string FlapsApName = "flaps_ap_name";
     public const string LitBindField = "lit_bind_field";
     public const string LitOtpApiKey = "lit_otp_api_key";
+	public const string BotBonnieBindTagId = "botbonnie_bind_tag_id";
+    public const string BotBonnieBindModuleId = "botbonnie_bind_module_id";
+    public const string BotBonnieApiToken = "botbonnie_api_token";
 
     public static (string vendor, string key) ToLabel(this ThirdPartySettingKey key)
     {
@@ -283,6 +308,17 @@ public static class ThirdPartySettingKeyExtensions
                 (ThirdPartySettingVendor.Lit.ToLabel(), LitBindField),
             ThirdPartySettingKey.Lit_OtpApiKey =>
                 (ThirdPartySettingVendor.Lit.ToLabel(), LitOtpApiKey),
+			// BotBonnie
+            ThirdPartySettingKey.BotBonnie_LineOa =>
+                (ThirdPartySettingVendor.BotBonnie.ToLabel(), LineOa),
+            ThirdPartySettingKey.BotBonnie_LineBot =>
+                (ThirdPartySettingVendor.BotBonnie.ToLabel(), LineBot),
+            ThirdPartySettingKey.BotBonnie_BindTagId =>
+                (ThirdPartySettingVendor.BotBonnie.ToLabel(), BotBonnieBindTagId),
+            ThirdPartySettingKey.BotBonnie_BindModuleId =>
+                (ThirdPartySettingVendor.BotBonnie.ToLabel(), BotBonnieBindModuleId),
+            ThirdPartySettingKey.BotBonnie_ApiToken =>
+                (ThirdPartySettingVendor.BotBonnie.ToLabel(), BotBonnieApiToken),
             _ => (null, null)
         };
     }
