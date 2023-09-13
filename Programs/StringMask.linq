@@ -22,11 +22,11 @@ public string GetMaskedEmailPrefix(string email)
 		return $"Origin: {email}, Masked: {email}****";
 	}
 	
-	if (length == 2)
-	{
-		//return $"{email[0]}****{email[1]}";
-		return $"Origin: {email}, Masked: {email[0]}****{email[1]}";
-	}
+	//if (length == 2)
+	//{
+	//	//return $"{email[0]}****{email[1]}";
+	//	return $"Origin: {email}, Masked: {email[0]}****{email[1]}";
+	//}
 	
 	var median = length / 2;
 	var leftPointer = 0;
