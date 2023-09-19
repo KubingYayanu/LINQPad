@@ -41,10 +41,10 @@ public string GetMaskedEmailPrefix(string email)
 	var count = rightPointer - leftPointer - 1;
 	var stars = new string(Enumerable.Repeat('*', count).ToArray());
 	var prefix = email.Substring(0, leftPointer + 1);
-	var surfix = email.Substring(rightPointer);
+	var suffix = email.Substring(rightPointer);
 	
 	//return $"Origin: {email}, Masked: {prefix + "****" + surfix}, Left: {leftPointer}, Median: {median}, Right: {rightPointer}, Count: {count}";
-	return $"Origin: {email}, Masked: {prefix + "****" + surfix}";
+	return $"Origin: {email}, Masked: {prefix + "****" + suffix}";
 }
 
 public List<string> GetEmailPrefix()
